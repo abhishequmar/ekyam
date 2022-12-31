@@ -16,18 +16,21 @@ class EmailVerificationScreen extends StatefulWidget {
 
 class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   bool isEmailVerified = false;
+  bool canResendEmail = false;
   Timer? timer;
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.currentUser?.sendEmailVerification();
-    setState(
-      () {
-        isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-      },
-    );
-    timer =
-        Timer.periodic(const Duration(seconds: 3), (_) => checkEmailVerified());
+    isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+
+    if (!isEmailVerified) {
+      sendVerificationEmail();
+
+      timer = Timer.periodic(
+        const Duration(seconds: 3),
+        (_) => checkEmailVerified(),
+      );
+    }
   }
 
   checkEmailVerified() async {
@@ -41,6 +44,17 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       Fluttertoast.showToast(msg: "Email Successfully Verified");
 
       timer?.cancel();
+    }
+  }
+
+  sendVerificationEmail() async {
+    try {
+      await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+      setState(() => canResendEmail = false);
+      await Future.delayed(const Duration(seconds: 5));
+      setState(() => canResendEmail = true);
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
@@ -95,13 +109,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 32.0),
                       child: ElevatedButton(
                         child: const Text('Resend'),
-                        onPressed: () {
-                          try {
-                            FirebaseAuth.instance.currentUser
-                                ?.sendEmailVerification();
-                          } catch (e) {
-                            debugPrint('$e');
-                          }
+                        onPressed: () async {
+                          sendVerificationEmail();
                         },
                       ),
                     ),
