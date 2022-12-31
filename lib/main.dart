@@ -1,7 +1,22 @@
-import 'package:ekyam/directLoginPage.dart';
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-void main() {
+import 'package:ekyam/screens/HomePage.dart';
+import 'package:ekyam/screens/directLoginPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      // options: const FirebaseOptions(
+      //   apiKey: "AIzaSyC5buMB0nxik2iu4WhiWdXeWxm9NtpLCRQ", // Your apiKey
+      //   appId: "XXX", // Your appId
+      //   messagingSenderId: "XXX", // Your messagingSenderId
+      //   projectId: "ekyam-c8209", // Your projectId
+      // ),
+      );
   runApp(const MyApp());
 }
 
@@ -33,8 +48,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-
-
   final String title;
 
   @override
@@ -42,13 +55,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  late StreamSubscription<User?> user;
 
+  @override
+  void initState() {
+    user = FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user == null) {
+        Fluttertoast.showToast(msg: 'signed out!');
+      } else {
+        Fluttertoast.showToast(msg: 'signed in!');
+      }
+    });
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    user.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    return directLoginPage();
+    return StreamBuilder(
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.hasData) {
+          return const HomePage();
+        } else {
+          return FirebaseAuth.instance.currentUser == null
+              ? const DirectLoginPage()
+              : const HomePage();
+        }
+      },
+    );
   }
 }
