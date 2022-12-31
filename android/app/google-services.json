@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "853097644289",
+    "project_id": "ekyam-c8209",
+    "storage_bucket": "ekyam-c8209.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853097644289:android:3224d119606687cbde1b00",
+        "android_client_info": {
+          "package_name": "com.example.ekyam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "853097644289-cs2fbpjljuanr9blorlf7uageec5h1lu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ekyam",
+            "certificate_hash": "421705ac5a8845c983b5fc573204cfb920ca0a4b"
+          }
+        },
+        {
+          "client_id": "853097644289-joolg1ut0u5hfl18ughu530452duv8d6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKRm0-UxsUBjypDn6FwjEjHNAkq4JnjiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "853097644289-joolg1ut0u5hfl18ughu530452duv8d6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
