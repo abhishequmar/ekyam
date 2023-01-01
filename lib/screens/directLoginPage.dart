@@ -2,10 +2,33 @@ import 'package:ekyam/screens/HomePage.dart';
 import 'package:ekyam/screens/auth_screens/loginScreen.dart';
 import 'package:ekyam/screens/auth_screens/signupScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class DirectLoginPage extends StatelessWidget {
-  const DirectLoginPage({Key? key}) : super(key: key);
+final GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: [
+    'email'
+  ]
+);
 
+class DirectLoginPage extends StatefulWidget {
+
+  GoogleSignInAccount? _currentUser;
+  @override
+  initState(){
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+        _currentUser = account;
+    });
+    _googleSignIn.signInSilently();
+    // super.initState();
+
+  }
+  // const DirectLoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<DirectLoginPage> createState() => _DirectLoginPageState();
+}
+
+class _DirectLoginPageState extends State<DirectLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,12 +39,22 @@ class DirectLoginPage extends StatelessWidget {
             TextButton(
               child: const Text("Login with Google"),
               onPressed: () {
-                Navigator.push(
-                  (context),
-                  MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  ),
-                );
+                _googleSignIn.signIn();
+                if(GoogleSignInAccount !=null) {
+                  print(GoogleSignInAccount);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  HomePage()),
+                  );
+                }
+
+
+                // Navigator.push(
+                //   (context),
+                //   MaterialPageRoute(
+                //     builder: (context) => const HomePage(),
+                //   ),
+                // );
               },
             ),
             TextButton(
@@ -46,9 +79,17 @@ class DirectLoginPage extends StatelessWidget {
                 );
               },
             ),
+            TextButton(
+              child: const Text("Sign Out"),
+              onPressed: () {
+                _googleSignIn.signOut();
+
+              },
+            ),
           ],
         ),
       ),
     );
   }
 }
+

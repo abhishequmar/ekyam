@@ -122,7 +122,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                           FirebaseAuth.instance.signOut();
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) => const DirectLoginPage(),
+                              builder: (context) =>  DirectLoginPage(),
                             ),
                           );
                         },

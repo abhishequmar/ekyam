@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return const HomePage();
         } else {
           return FirebaseAuth.instance.currentUser == null
-              ? const DirectLoginPage()
+              ?  DirectLoginPage()
               : const HomePage();
         }
       },
