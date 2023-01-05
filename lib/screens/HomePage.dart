@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ekyam/screens/directLoginPage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../widget/language_picker_widget.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: [
@@ -23,6 +26,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          LanguageWidget()
+        ],
         title: Title(
           color: Colors.blue,
           child: const Text("Home Page"),
@@ -32,7 +38,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("THIS IS HOME PAGE"),
+             Text(AppLocalizations.of(context)!.language),
             ElevatedButton(
               onPressed: () {
                 logout(context);
