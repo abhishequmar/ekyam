@@ -1,9 +1,9 @@
 import 'package:ekyam/screens/directLoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ekyam/screens/directLoginPage.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../widget/language_picker_widget.dart';
 
@@ -26,27 +26,43 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          LanguageWidget()
+        actions: const [
+          LanguagePickerWidget(),
+          SizedBox(width: 12),
         ],
+        centerTitle: true,
         title: Title(
           color: Colors.blue,
-          child: const Text("Home Page"),
+          child: Text(
+            "Home Page",
+            style: GoogleFonts.poppins(
+              fontSize: 22,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-             Text(AppLocalizations.of(context)!.language),
-            ElevatedButton(
-              onPressed: () {
-                logout(context);
-
-              },
-              child: Text("Logout ->"),
-            )
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.language,
+                style: GoogleFonts.poppins(fontSize: 16),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  logout(context);
+                },
+                child: Text(
+                  "Logout ->",
+                  style: GoogleFonts.poppins(fontSize: 16),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -56,6 +72,6 @@ class _HomePageState extends State<HomePage> {
     await FirebaseAuth.instance.signOut();
 
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) =>  DirectLoginPage()));
+        MaterialPageRoute(builder: (context) => DirectLoginPage()));
   }
 }
