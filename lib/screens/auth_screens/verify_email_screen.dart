@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ekyam/screens/HomePage.dart';
+import 'package:ekyam/screens/auth_screens/loginScreen.dart';
 import 'package:ekyam/screens/directLoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +123,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                           FirebaseAuth.instance.signOut();
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) =>  DirectLoginPage(),
+                              builder: (context) =>  LoginScreen(),
                             ),
                           );
                         },

@@ -1,4 +1,5 @@
-import 'package:ekyam/screens/directLoginPage.dart';
+import 'package:ekyam/screens/auth_screens/loginScreen.dart';
+// import 'package:ekyam/screens/directLoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -98,6 +99,6 @@ class _HomePageState extends State<HomePage> {
     await FirebaseAuth.instance.signOut();
 
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => DirectLoginPage()));
+        MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }
