@@ -22,50 +22,76 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: const [
-          LanguagePickerWidget(),
-          SizedBox(width: 12),
+        title: const Text("Schemes"),
+        centerTitle: true ,
+        actions :  <Widget> [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.notifications),
+          ),
         ],
-        centerTitle: true,
-        title: Title(
-          color: Colors.blue,
-          child: Text(
-            "Home Page",
-            style: GoogleFonts.poppins(
-              fontSize: 22,
-              fontWeight: FontWeight.w500,
+        backgroundColor: Color(0xFFF49D1A),
+        leading: IconButton(
+            onPressed: () {},
+            icon: IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.menu)
+    ),
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(25),
+            bottomRight: Radius.circular(25),
+          )
+        ),
+      ),
+        body: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(13.0),
+            child: GridView(children:[
+              Container(
+                child: Text('Find By Categories',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,color: Colors.black),),
+              ),
+              Container(decoration:
+              BoxDecoration(borderRadius: BorderRadius.circular(5),color:Colors.white),),
+              Container(child: Text('Blindness',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: Colors.black),),
+                decoration:
+              BoxDecoration(borderRadius: BorderRadius.circular(15),color:Colors.orangeAccent),),
+              Container(child: Text('Mental Disability',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: Colors.black),),
+                decoration:
+              BoxDecoration(borderRadius: BorderRadius.circular(15),color:Colors.yellowAccent),),
+              Container(child: Text('Hearing Impaired',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: Colors.black),),
+                decoration:
+              BoxDecoration(borderRadius: BorderRadius.circular(15),color:Colors.pinkAccent),),
+              Container(child: Text('Locomotor Disability',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: Colors.black),),
+                decoration:
+              BoxDecoration(borderRadius: BorderRadius.circular(15),color:Colors.greenAccent),),
+              Container(child: Text('Learning Disability',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: Colors.black),),
+                decoration:
+              BoxDecoration(borderRadius: BorderRadius.circular(15),color:Colors.redAccent),),
+              Container(
+                child: Text('Physical Disability',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: Colors.black),),decoration:
+              BoxDecoration(borderRadius: BorderRadius.circular(15),color:Colors.blueAccent),),
+            ],
+              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 20,),
+
             ),
           ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.language,
-                style: GoogleFonts.poppins(fontSize: 16),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  logout(context);
-                },
-                child: Text(
-                  "Logout ->",
-                  style: GoogleFonts.poppins(fontSize: 16),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+        )
+      );
+
   }
 
   Future<void> logout(BuildContext context) async {
