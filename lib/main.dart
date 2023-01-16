@@ -49,6 +49,11 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: ThemeData(
             primarySwatch: Colors.blue,
+            appBarTheme: const AppBarTheme(
+              elevation: 0,
+              foregroundColor: Colors.green,
+              backgroundColor:  Color.fromARGB(150, 153, 210, 170),
+            )
           ),
           home: const MyHomePage(title: 'Flutter Demo Home Page'),
         );
@@ -95,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return const HomePage();
         } else {
           return FirebaseAuth.instance.currentUser == null
-              ? LoginScreen()
+              ? const LoginScreen()
               : const HomePage();
         }
       },
