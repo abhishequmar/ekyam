@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:ekyam/provider/locale_provider.dart';
-import 'package:ekyam/screens/HomePage.dart';
-import 'package:ekyam/screens/auth_screens/loginScreen.dart';
-// import 'package:ekyam/screens/directLoginPage.dart';
+import 'package:ekyam/screens/user_home_screen.dart';
+import 'package:ekyam/firstScreen.dart';
+// import 'package:ekyam/screens/firstScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return const HomePage();
         } else {
           return FirebaseAuth.instance.currentUser == null
-              ? LoginScreen()
+              ? FirstScreen()
               : const HomePage();
         }
       },

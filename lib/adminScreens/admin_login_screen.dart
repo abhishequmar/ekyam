@@ -1,25 +1,29 @@
+import 'package:ekyam/adminScreens/scheme_creation_screen.dart';
 import 'package:ekyam/screens/auth_screens/forgotPasswordScreen.dart';
-import 'package:ekyam/screens/auth_screens/verify_email_screen.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+import '../firstScreen.dart';
+import 'admin_home_screen.dart';
+
+class AdminLoginScreen extends StatefulWidget {
+  const AdminLoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<AdminLoginScreen> createState() => _AdminLoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _AdminLoginScreenState extends State<AdminLoginScreen> {
   final _auth = FirebaseAuth.instance;
-  final _loginformkey = GlobalKey<FormState>();
+  final _adminLoginformkey = GlobalKey<FormState>();
 
   //editingcontrollers
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController adminEmailController = TextEditingController();
+  final TextEditingController adminPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final emailField = TextFormField(
       autofocus: false,
-      controller: emailController,
+      controller: adminEmailController,
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
         if (value!.isEmpty) {
@@ -44,8 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
         return null;
       },
       onSaved: (value) {
-        _loginformkey.currentState!.validate();
-        emailController.text = value!;
+        _adminLoginformkey.currentState!.validate();
+        adminEmailController.text = value!;
       },
       textInputAction: TextInputAction.next,
       cursorColor: Colors.blue,
@@ -58,11 +62,11 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         prefixIcon:
-            const Icon(CupertinoIcons.mail_solid, color: Color(0xFF023047)),
+        const Icon(CupertinoIcons.mail_solid, color: Color(0xFF023047)),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Email",
         hintStyle:
-            GoogleFonts.poppins(textStyle: const TextStyle(color: Colors.grey)),
+        GoogleFonts.poppins(textStyle: const TextStyle(color: Colors.grey)),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue),
         ),
@@ -70,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     final passwordField = TextFormField(
       autofocus: false,
-      controller: passwordController,
+      controller: adminPasswordController,
       obscureText: true,
       validator: (value) {
         RegExp regex = RegExp(r'^.{8,}$');
@@ -83,8 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
         return null;
       },
       onSaved: (value) {
-        _loginformkey.currentState!.validate();
-        passwordController.text = value!;
+        _adminLoginformkey.currentState!.validate();
+        adminPasswordController.text = value!;
       },
       textInputAction: TextInputAction.done,
       cursorColor: Colors.blue,
@@ -97,54 +101,62 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         prefixIcon:
-            const Icon(CupertinoIcons.lock_fill, color: Color(0xFF023047)),
+        const Icon(CupertinoIcons.lock_fill, color: Color(0xFF023047)),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Password",
         hintStyle:
-            GoogleFonts.poppins(textStyle: const TextStyle(color: Colors.grey)),
+        GoogleFonts.poppins(textStyle: const TextStyle(color: Colors.grey)),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue),
         ),
       ),
     );
-    final loginButton = MaterialButton(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-      elevation: 10,
-      padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-      height: 60,
-      minWidth: width * 0.35,
-      color: Colors.blue,
-      onPressed: () {
-        logIn(emailController.text, passwordController.text);
-      },
-      child: Text(
-        "Log In",
-        textAlign: TextAlign.center,
-        style: GoogleFonts.poppins(
-          textStyle: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+    final adminLoginButton =Material(
+      color: Colors.lightBlue,
+      elevation: 5,
+      borderRadius: BorderRadius.circular(30),
+      child: MaterialButton(
+        splashColor: Colors.blueAccent,
+        padding: EdgeInsets.fromLTRB(20, 15,20, 15),
+        minWidth: MediaQuery.of(context).size.width,
+
+        onPressed: (){
+          Navigator.pushAndRemoveUntil(
+              (context),
+              MaterialPageRoute(
+                  builder: (context) => const AdminHomeScreen()),
+                  (route) => false);
+        },
+        child: Text(
+          "Login as an Admin",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold,
           ),
         ),
+
       ),
+
     );
 
     return Scaffold(
+
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Center(
             child: Form(
-              key: _loginformkey,
+              key: _adminLoginformkey,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 196, bottom: 80),
                       child: Text(
-                        "Login",
+                        "Admin Login",
                         style: GoogleFonts.poppins(
                           textStyle: const TextStyle(
                             fontWeight: FontWeight.bold,
@@ -158,27 +170,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 10),
                     passwordField,
                     const SizedBox(height: 40),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          child: Text("Forgot Password?",
-                              style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  color: Colors.blue,
-                                ),
-                              )),
-                          onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ForgotPasswordScreen(),
+                    SizedBox(height: 10,),
+                    adminLoginButton,
+                    SizedBox(height: 10,),
+                    TextButton(
+                      child: Text("Forgot Password?",
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Colors.blue,
                             ),
-                          ),
+                          )),
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                          const ForgotPasswordScreen(),
                         ),
-                        loginButton,
-                      ],
+                      ),
                     ),
                   ],
                 ),
@@ -192,20 +201,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
   //login function
   void logIn(String email, String password) async {
-    if (_loginformkey.currentState!.validate()) {
+    if (_adminLoginformkey.currentState!.validate()) {
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((uid) => {
-                Fluttertoast.showToast(msg: "Login Successful"),
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const EmailVerificationScreen(),
-                  ),
-                ),
-              })
+        Fluttertoast.showToast(msg: "Login Successful"),
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const AdminHomeScreen(),
+          ),
+        ),
+      })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);
       });
     }
   }
+
 }
+

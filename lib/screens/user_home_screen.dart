@@ -1,28 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ekyam/screens/auth_screens/loginScreen.dart';
-// import 'package:ekyam/screens/directLoginPage.dart';
+import 'package:ekyam/firstScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-
+import '../constants.dart';
 import '../widget/language_picker_widget.dart';
 
-var kprimaryTextColor = Colors.green;
-var ksecondaryTextColor = Colors.black;
-var ktertiaryTextColor = Colors.black;
-var kprimaryFontSize = 25.0;
-var ksecondaryFontSize =20.0;
-var ktertiaryFontSize =15.0;
-
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: [
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ],
-);
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -48,20 +33,26 @@ class _HomePageState extends State<HomePage> {
 
         ],
         backgroundColor: Color.fromARGB(150, 153, 210, 170),
-        leading: IconButton(
-            onPressed: () {},
-            icon: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.menu)
-    ),
-        ),
-        // shape: const RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.only(
-        //     bottomLeft: Radius.circular(25),
-        //     bottomRight: Radius.circular(25),
-        //   )
-        // ),
+
+
       ),
+
+        // Hamburger Menu
+        drawer: Drawer(
+
+          width: MediaQuery.of(context).size.width * 0.5,
+          child: ListView(
+            children: <Widget>[
+              TextButton(
+                  onPressed: (){
+                    logout(context);
+
+                  },
+                  child: Text("Sign Out"))
+
+            ],
+          ),
+        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -208,6 +199,6 @@ class _HomePageState extends State<HomePage> {
     await FirebaseAuth.instance.signOut();
 
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreen()));
+        MaterialPageRoute(builder: (context) => FirstScreen()));
   }
 }

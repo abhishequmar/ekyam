@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:ekyam/screens/HomePage.dart';
-import 'package:ekyam/screens/auth_screens/loginScreen.dart';
-import 'package:ekyam/screens/directLoginPage.dart';
+import 'package:ekyam/screens/user_home_screen.dart';
+import 'package:ekyam/screens/auth_screens/userLoginScreen.dart';
+import 'package:ekyam/firstScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -123,7 +123,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                           FirebaseAuth.instance.signOut();
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) =>  LoginScreen(),
+                              builder: (context) =>  UserLoginScreen(),
                             ),
                           );
                         },
