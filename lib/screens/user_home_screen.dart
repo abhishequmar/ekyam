@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ekyam/screens/auth_screens/loginScreen.dart';
+import 'package:ekyam/firstScreen.dart';
+// import 'package:ekyam/screens/auth_screens/loginScreen.dart';
 // import 'package:ekyam/screens/directLoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -208,6 +209,6 @@ class _HomePageState extends State<HomePage> {
     await FirebaseAuth.instance.signOut();
 
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreen()));
+        MaterialPageRoute(builder: (context) => FirstScreen()));
   }
 }
