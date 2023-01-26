@@ -55,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         nameEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
-      cursorColor: Colors.blue,
+      cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: 'Full Name',
         labelStyle: GoogleFonts.poppins(
@@ -71,7 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         hintStyle:
             GoogleFonts.poppins(textStyle: const TextStyle(color: Colors.grey)),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: BorderSide(color: Colors.green),
         ),
       ),
     );
@@ -97,7 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         emailEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
-      cursorColor: Colors.blue,
+      cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: 'Email',
         labelStyle: GoogleFonts.poppins(
@@ -114,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           textStyle: const TextStyle(color: Colors.grey),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: BorderSide(color: Colors.green),
         ),
       ),
     );
@@ -136,7 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mobileNumberEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
-      cursorColor: Colors.blue,
+      cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: 'Mobile Number',
         labelStyle: GoogleFonts.poppins(
@@ -153,7 +153,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           textStyle: const TextStyle(color: Colors.grey),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: BorderSide(color: Colors.green),
         ),
       ),
     );
@@ -175,7 +175,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         passwordEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
-      cursorColor: Colors.blue,
+      cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: 'Password',
         labelStyle: GoogleFonts.poppins(
@@ -192,7 +192,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           textStyle: const TextStyle(color: Colors.grey),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: BorderSide(color: Colors.green),
         ),
       ),
     );
@@ -214,7 +214,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         confirmPasswordEditingController.text = value!;
       },
       textInputAction: TextInputAction.done,
-      cursorColor: Colors.blue,
+      cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: 'Conformation Password',
         labelStyle: GoogleFonts.poppins(
@@ -231,7 +231,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           textStyle: const TextStyle(color: Colors.grey),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: BorderSide(color: Colors.green),
         ),
       ),
     );
@@ -241,7 +241,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
       height: 60,
       minWidth: width * 0.35,
-      color: Colors.blue,
+      color: Colors.green,
       onPressed: () {
         signUp(emailEditingController.text, passwordEditingController.text);
       },
@@ -257,6 +257,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(backgroundColor: Colors.transparent),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -269,7 +271,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 96, bottom: 64),
+                      padding: const EdgeInsets.only(top: 64, bottom: 64),
                       child: Text(
                         "Sign Up",
                         style: GoogleFonts.poppins(

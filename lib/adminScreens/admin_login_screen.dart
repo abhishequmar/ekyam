@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ekyam/adminScreens/scheme_creation_screen.dart';
+import 'package:ekyam/models/admin_model.dart';
 import 'package:ekyam/screens/auth_screens/forgotPasswordScreen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../constants.dart';
 import '../firstScreen.dart';
 import 'admin_home_screen.dart';
 
@@ -20,10 +23,22 @@ class AdminLoginScreen extends StatefulWidget {
 class _AdminLoginScreenState extends State<AdminLoginScreen> {
   final _auth = FirebaseAuth.instance;
   final _adminLoginformkey = GlobalKey<FormState>();
+  AdminModel adminModel = AdminModel();
 
   //editingcontrollers
   final TextEditingController adminEmailController = TextEditingController();
   final TextEditingController adminPasswordController = TextEditingController();
+
+  @override
+  void initState() {
+    FirebaseFirestore.instance.collection('admins').doc('admins').get().then(
+      (value) {
+        adminModel = AdminModel.fromMap(value.data());
+      },
+    );
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +67,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
         adminEmailController.text = value!;
       },
       textInputAction: TextInputAction.next,
-      cursorColor: Colors.blue,
+      cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: 'Email',
         labelStyle: GoogleFonts.poppins(
@@ -62,13 +77,13 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
           ),
         ),
         prefixIcon:
-        const Icon(CupertinoIcons.mail_solid, color: Color(0xFF023047)),
+            const Icon(CupertinoIcons.mail_solid, color: Color(0xFF023047)),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Email",
         hintStyle:
-        GoogleFonts.poppins(textStyle: const TextStyle(color: Colors.grey)),
+            GoogleFonts.poppins(textStyle: const TextStyle(color: Colors.grey)),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: BorderSide(color: Colors.green),
         ),
       ),
     );
@@ -91,7 +106,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
         adminPasswordController.text = value!;
       },
       textInputAction: TextInputAction.done,
-      cursorColor: Colors.blue,
+      cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: 'Password',
         labelStyle: GoogleFonts.poppins(
@@ -101,46 +116,42 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
           ),
         ),
         prefixIcon:
-        const Icon(CupertinoIcons.lock_fill, color: Color(0xFF023047)),
+            const Icon(CupertinoIcons.lock_fill, color: Color(0xFF023047)),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Password",
         hintStyle:
-        GoogleFonts.poppins(textStyle: const TextStyle(color: Colors.grey)),
+            GoogleFonts.poppins(textStyle: const TextStyle(color: Colors.grey)),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: BorderSide(color: Colors.green),
         ),
       ),
     );
-    final adminLoginButton =Material(
-      color: Colors.lightBlue,
-      elevation: 5,
-      borderRadius: BorderRadius.circular(30),
-      child: MaterialButton(
-        splashColor: Colors.blueAccent,
-        padding: EdgeInsets.fromLTRB(20, 15,20, 15),
-        minWidth: MediaQuery.of(context).size.width,
-
-        onPressed: (){
-          Navigator.pushAndRemoveUntil(
-              (context),
-              MaterialPageRoute(
-                  builder: (context) => const AdminHomeScreen()),
-                  (route) => false);
-        },
-        child: Text(
-          "Login as an Admin",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold,
+    final adminLoginButton = MaterialButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+      elevation: 10,
+      minWidth: MediaQuery.of(context).size.width,
+      height: 60,
+      color: Colors.green,
+      splashColor: kPrimaryButtonColor,
+      onPressed: () {
+        logIn(adminEmailController.text, adminPasswordController.text);
+      },
+      child: Text(
+        "Login as an Admin",
+        textAlign: TextAlign.center,
+        style: GoogleFonts.poppins(
+          textStyle: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
-
       ),
-
     );
 
     return Scaffold(
-
+      appBar: AppBar(backgroundColor: Colors.transparent),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -154,7 +165,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 196, bottom: 80),
+                      padding: const EdgeInsets.only(top: 140, bottom: 80),
                       child: Text(
                         "Admin Login",
                         style: GoogleFonts.poppins(
@@ -170,22 +181,25 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                     const SizedBox(height: 10),
                     passwordField,
                     const SizedBox(height: 40),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     adminLoginButton,
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     TextButton(
                       child: Text("Forgot Password?",
                           style: GoogleFonts.poppins(
                             textStyle: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
-                              color: Colors.blue,
+                              color: Colors.green,
                             ),
                           )),
                       onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) =>
-                          const ForgotPasswordScreen(),
+                          builder: (context) => const ForgotPasswordScreen(),
                         ),
                       ),
                     ),
@@ -202,21 +216,20 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
   //login function
   void logIn(String email, String password) async {
     if (_adminLoginformkey.currentState!.validate()) {
-      await _auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) => {
-        Fluttertoast.showToast(msg: "Login Successful"),
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const AdminHomeScreen(),
-          ),
-        ),
-      })
-          .catchError((e) {
-        Fluttertoast.showToast(msg: e!.message);
-      });
+      if (adminModel.adminList!.contains(email)) {
+        if (adminModel.adminDetails![email] == password) {
+          Fluttertoast.showToast(msg: "Login Successful 😊");
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const AdminHomeScreen(),
+            ),
+          );
+        } else {
+          Fluttertoast.showToast(msg: "Invalid Password 😭");
+        }
+      } else {
+        Fluttertoast.showToast(msg: "Invalid email 😭");
+      }
     }
   }
-
 }
-

@@ -3,7 +3,7 @@ import 'package:ekyam/widget/show_scheme_detail_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../screens/HomePage.dart';
+import '../constants.dart';
 
 class ShowSchemesByCategory extends StatefulWidget {
   const ShowSchemesByCategory({Key? key, required this.category})
@@ -78,14 +78,7 @@ class _ShowSchemesByCategoryState extends State<ShowSchemesByCategory> {
                                 ),
                               ],
                               borderRadius: BorderRadius.circular(15),
-                              gradient: const LinearGradient(
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight,
-                                colors: [
-                                  Colors.white,
-                                  Color.fromARGB(150, 153, 210, 170)
-                                ],
-                              ),
+                              color: Colors.green[100],
                             ),
                             child: Align(
                               alignment: Alignment.centerLeft,

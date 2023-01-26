@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../constants.dart';
+
 class UserLoginScreen extends StatefulWidget {
   const UserLoginScreen({Key? key}) : super(key: key);
 
@@ -50,7 +52,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
         emailController.text = value!;
       },
       textInputAction: TextInputAction.next,
-      cursorColor: Colors.blue,
+      cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: 'Email',
         labelStyle: GoogleFonts.poppins(
@@ -66,7 +68,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
         hintStyle:
             GoogleFonts.poppins(textStyle: const TextStyle(color: Colors.grey)),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: BorderSide(color: Colors.green),
         ),
       ),
     );
@@ -90,7 +92,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
         passwordController.text = value!;
       },
       textInputAction: TextInputAction.done,
-      cursorColor: Colors.blue,
+      cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: 'Password',
         labelStyle: GoogleFonts.poppins(
@@ -106,7 +108,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
         hintStyle:
             GoogleFonts.poppins(textStyle: const TextStyle(color: Colors.grey)),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: BorderSide(color: Colors.green),
         ),
       ),
     );
@@ -117,7 +119,8 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
       padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
       height: 60,
       minWidth: width * 0.35,
-      color: Colors.blue,
+      color: Colors.green,
+      splashColor: kPrimaryButtonColor,
       onPressed: () {
         logIn(emailController.text, passwordController.text);
       },
@@ -134,8 +137,11 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
       ),
     );
 
-
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -148,7 +154,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 196, bottom: 80),
+                      padding: const EdgeInsets.only(top: 140, bottom: 80),
                       child: Text(
                         "User Login",
                         style: GoogleFonts.poppins(
@@ -164,20 +170,20 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                     const SizedBox(height: 10),
                     passwordField,
                     const SizedBox(height: 40),
-                    userLoginButton,
-                    const SizedBox(height: 10),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         TextButton(
-                          child: Text("Forgot Password?",
-                              style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  color: Colors.blue,
-                                ),
-                              )),
+                          child: Text(
+                            "Forgot Password?",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ),
                           onPressed: () => Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) =>
@@ -185,37 +191,41 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                             ),
                           ),
                         ),
-
-
+                        userLoginButton,
                       ],
                     ),
-
-                    SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don't have an account?"),
+                        Text(
+                          "Don't have an account?",
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
                         TextButton(
                           child: Text("Signup",
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16,
-                                  color: Colors.blue,
+                                  color: Colors.green,
                                 ),
                               )),
                           onPressed: () => Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) =>
-                              const SignUpScreen(),
+                              builder: (context) => const SignUpScreen(),
                             ),
                           ),
                         ),
-
-
                       ],
                     ),
-
                   ],
                 ),
               ),

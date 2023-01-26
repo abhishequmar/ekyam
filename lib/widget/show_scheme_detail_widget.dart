@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../screens/HomePage.dart';
+import '../constants.dart';
 
 class ShowSchemeDetail extends StatefulWidget {
   const ShowSchemeDetail({Key? key, required this.category, required this.name})
@@ -95,14 +95,7 @@ class _ShowSchemeDetailState extends State<ShowSchemeDetail> {
                                 ),
                               ],
                               borderRadius: BorderRadius.circular(15),
-                              gradient: const LinearGradient(
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight,
-                                colors: [
-                                  Colors.white,
-                                  Color.fromARGB(150, 153, 210, 170)
-                                ],
-                              ),
+                              color: Colors.green[100],
                             ),
                             child: Align(
                               alignment: Alignment.centerLeft,
